@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Modal from "./Modal";
 import { numbers, letters, specialCharacters } from "./Characters";
@@ -100,6 +100,11 @@ const App = () => {
       }, 5000);
     });
   }
+
+  // Pre-populate output on renders
+  useEffect(() => {
+    handleGeneratePwd();
+  }, []);
 
   return (
     <>
