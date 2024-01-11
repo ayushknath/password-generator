@@ -13,6 +13,8 @@ const App = () => {
   const [includeNumbers, setIncludeNumbers] = useState(false);
   const [pwdLength, setPwdLength] = useState(12);
   const [output, setOutput] = useState("");
+  const [hidePwd, setHidePwd] = useState(false);
+  const [maskedPwd, setMaskedPwd] = useState("");
   const [modalStatus, setModalStatus] = useState({
     message: "",
     state: "error",
@@ -34,7 +36,7 @@ const App = () => {
       }, 5000);
       return;
     }
-
+    setHidePwd(false);
     let selectedCharacters = letters;
 
     if (includeSpecial) {
@@ -44,7 +46,7 @@ const App = () => {
       selectedCharacters += numbers;
     }
 
-    displayPwd(generatePwd(selectedCharacters));
+    setOutput(generatePwd(selectedCharacters));
   }
 
   function generatePwd(str) {
@@ -63,10 +65,6 @@ const App = () => {
     return startingPhrase + pwd + endingPhrase;
   }
 
-  function displayPwd(pwd) {
-    setOutput(pwd);
-  }
-
   function copyPwd() {
     if (output === "") {
       return;
@@ -82,7 +80,7 @@ const App = () => {
     if (duplicatePwd) {
       setModalStatus({
         message:
-          "Beware! You have copied this password once, so it can't be copied again",
+          "This password have been copied once, so it can't be copied again",
         state: "error",
       });
       setTimeout(() => {
@@ -99,6 +97,19 @@ const App = () => {
         setModalStatus({ message: "", state: "error" });
       }, 5000);
     });
+  }
+
+  function handlePwdVisibility() {
+    let mask = "";
+    if (!hidePwd) {
+      setHidePwd(true);
+      for (let i = 1; i <= pwdLength; i++) {
+        mask += "•";
+      }
+    } else {
+      setHidePwd(false);
+    }
+    setMaskedPwd(mask);
   }
 
   // Pre-populate output on renders
@@ -163,7 +174,7 @@ const App = () => {
                 onClick={handleGeneratePwd}
               />
             </span>
-            <span className="pwd-output">{output}</span>
+            <span className="pwd-output">{hidePwd ? maskedPwd : output}</span>
             <FontAwesomeIcon
               icon={faCopy}
               className="pwd-copy"
@@ -171,7 +182,9 @@ const App = () => {
             />
           </div>
 
-          <p className="pwd-visibility">Show password</p>
+          <p className="pwd-visibility" onClick={handlePwdVisibility}>
+            {hidePwd ? "Show" : "Hide"} password
+          </p>
         </div>
 
         <div className="pwd-customisation">
