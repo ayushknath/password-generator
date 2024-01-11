@@ -181,8 +181,18 @@ body {
   box-shadow: none;
 }
 
+.pwd-visibility {
+  margin-top: 1.5rem;
+  text-align: right;
+  color: var(--accent-green);
+}
+
+.pwd-visibility:hover {
+  cursor: pointer;
+}
+
 .pwd-customisation {
-  margin-block-start: 5rem;
+  margin-top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -218,12 +228,17 @@ body {
   }
 
   .pwd-customisation {
-    margin-block-start: 3rem;
+    margin-top: 4rem;
   }
 }
 
 @media (max-width: 425px) {
   #root > section:nth-child(2) {
     width: 100%;
+  }
+
+  .pwd-visibility {
+    margin-top: 1.25rem;
+    text-align: center;
   }
 }

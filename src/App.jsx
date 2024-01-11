@@ -153,21 +153,25 @@ const App = () => {
       </section>
 
       <section>
-        <div className="output-box">
-          <span>
-            <b>Password</b>
+        <div className="output-container">
+          <div className="output-box">
+            <span>
+              <b>Password</b>
+              <FontAwesomeIcon
+                icon={faArrowsRotate}
+                className="pwd-regenerate"
+                onClick={handleGeneratePwd}
+              />
+            </span>
+            <span className="pwd-output">{output}</span>
             <FontAwesomeIcon
-              icon={faArrowsRotate}
-              className="pwd-regenerate"
-              onClick={handleGeneratePwd}
+              icon={faCopy}
+              className="pwd-copy"
+              onClick={copyPwd}
             />
-          </span>
-          <span className="pwd-output">{output}</span>
-          <FontAwesomeIcon
-            icon={faCopy}
-            className="pwd-copy"
-            onClick={copyPwd}
-          />
+          </div>
+
+          <p className="pwd-visibility">Show password</p>
         </div>
 
         <div className="pwd-customisation">
